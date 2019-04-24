@@ -38,7 +38,7 @@ listHeader = ['PDB','Chain','AAWT','AAMT','Pos','Response']
 
 pathInput = sys.argv[1]
 pathOutput = sys.argv[2]
-numberDataSet = int(sys.argv[3])
+dataSet = pd.read_csv(sys.argv[3])
 
 #creamos listas con todos los elementos existentes en los set de datos
 codePDB = []
@@ -48,19 +48,12 @@ aamt = []
 pos = []
 response = []
 
-#hacemos la lectura de cada dataset en base a la informacion existente en el path asociado
-for i in range(numberDataSet):
-
-    nameDataSet = str(i+1)+".csv"
-    print "process dataset: ", nameDataSet
-    dataSet = pd.read_csv(pathInput+nameDataSet)
-
-    codePDB = codePDB + processPDBData(dataSet['PDB'])
-    chain = chain + processPDBData(dataSet['Chain'])
-    aawt = aawt + processPDBData(dataSet['AAWT'])
-    aamt = aamt + processPDBData(dataSet['AAMT'])
-    pos = pos + processPosValue(dataSet['Pos'])
-    response = response + processResponse(dataSet['Response'])
+codePDB = processPDBData(dataSet['PDB'])
+chain = processPDBData(dataSet['Chain'])
+aawt = processPDBData(dataSet['AAWT'])
+aamt = processPDBData(dataSet['AAMT'])
+pos = processPosValue(dataSet['Pos'])
+response = processResponse(dataSet['Response'])
 
 #obtenemos la lista unica de proteinas
 listUniqueProtein = list(set(codePDB))
@@ -76,13 +69,14 @@ for pdb in listUniqueProtein:
 
     #en base a este indice y si el numero de ejemplos es mayor a 50 formamos los nuevos set de datos
     if len(indexPos)>100:
+
         command = "mkdir -p " + pathOutput+pdb
         print command
         os.system(command)#creamos el directorio
 
         #formamos la nueva matriz de elementos
         matrixResponse = []
-        for i in range(len(indexPos)):
+        for i in indexPos:
             row = [chain[i], aawt[i], pos[i], aamt[i], response[i]]
             matrixResponse.append(row)
 

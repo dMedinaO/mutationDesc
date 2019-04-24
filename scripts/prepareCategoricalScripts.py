@@ -63,14 +63,14 @@ for pdb in listUniqueProtein:
             indexPos.append(i)
 
     #en base a este indice y si el numero de ejemplos es mayor a 50 formamos los nuevos set de datos
-    if len(indexPos)>100:
+    if len(indexPos)>500:
         command = "mkdir -p " + pathOutput+pdb
         print command
         os.system(command)#creamos el directorio
 
         #formamos la nueva matriz de elementos
         matrixResponse = []
-        for i in range(len(indexPos)):
+        for i in indexPos:
             row = [aawt[i], pos[i], aamt[i], response[i]]
             matrixResponse.append(row)
 

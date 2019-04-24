@@ -19,7 +19,7 @@ def createFileExport(rowData, nameDoc):
     fileWrite.close()
 
 #lista de PDBS en el directorio
-ListPDB = ['1BN1','1BVC','1LZ1','1STN','1VQB','2CI2','2LZM','2RN2']
+ListPDB = ['1BNI','1BVC','1LZ1','1STN','1VQB','2CI2','2LZM','2RN2']
 
 #recibimos el directorio de salida y el archivo csv
 pathOutput = sys.argv[1]
