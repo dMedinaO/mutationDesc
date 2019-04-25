@@ -19,14 +19,14 @@ def createFileExport(rowData, nameDoc):
     fileWrite.close()
 
 #lista de PDBS en el directorio
-ListPDB = ['1A22','1CHO','1DKT','1FKJ','1FTG','1PPF','1RX4','1WQ5','2AFG','3SGB','5AZU']
+ListPDB = ['1DKT','1FKJ','1FTG','1RX4','1WQ5','2AFG','5AZU']
 
 #recibimos el directorio de salida y el archivo csv
 pathOutput = sys.argv[1]
 
 for codePDB in ListPDB:
 
-    nameFileInput = pathOutput+codePDB+"/dataSet_"+codePDB+".csv"
+    nameFileInput = pathOutput+codePDB+"/dataSet_addChain_"+codePDB+".csv"
     pathOutputPDB = pathOutput+codePDB+"/filesSDM/"
 
     dataSet = pd.read_csv(nameFileInput)
@@ -35,7 +35,7 @@ for codePDB in ListPDB:
     for i in range(len(dataSet)):
 
         mutation = "%s%d%s" % (dataSet['AAWT'][i], dataSet['Pos'][i], dataSet['AAMT'][i])
-        row = "%s %s" % (dataSet['Chain'][i], mutation)
+        row = "%s %s" % (dataSet['chain'][i], mutation)
         matrixNew.append(row)
 
     #obtenemos la cantidad de documentos a crear
